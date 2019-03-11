@@ -14,7 +14,8 @@ function startFromAbove(){
     // i ->> the leading position
     for(i = 0; i <rows.length-1; i++){
         var rowsToPrint = [];
-        rowsToPrint.push("בשלב ה" + (i + 1) +" בוצע:");
+        addHeader("בשלב ה" + (i + 1) +" בוצע:");
+        //rowsToPrint.push("בשלב ה" + (i + 1) +" בוצע:");
         for (q = 0; q<=i; q++){
             var rMatString = arrToStringArrStart(rows[q]);
             var lMatString = arrToStringArrEnd(oRows[q]);
@@ -57,7 +58,7 @@ function startFromAbove(){
         }
         printStringArray(rowsToPrint);
         console.log("----התוצאה-----");
-        addLabel("----התוצאה-----");
+        addHeader("----התוצאה-----");
         printFullMatrix();
     }
 }
@@ -107,11 +108,10 @@ function startFromBelow(){
                 }
             }
         }
-        rowsToPrint.push("בשלב ה" + (rows.length - i + 2) +" בוצע:");
+        addHeader("בשלב ה" + (rows.length - i + 2) +" בוצע:");
         rowsToPrint.reverse();
         printStringArray(rowsToPrint);
-        console.log("----התוצאה-----");
-        addLabel("----התוצאה-----");
+        addHeader("----התוצאה-----");
         printFullMatrix();
     }
 }
@@ -173,6 +173,12 @@ function addLabel(string){
     document.getElementById("Calculation_div").appendChild(label);
 }
 
+function addHeader(string){
+    var header = document.createElement('h3');
+    header.innerHTML = string;
+    document.getElementById("Calculation_div").appendChild(header);
+}
+
 function calculateMatrix(){
     var oneOn1 = document.getElementById("OneO1").value;
     var oneOn2 = document.getElementById("OneO2").value;
@@ -190,7 +196,15 @@ function calculateMatrix(){
     row2 = [twoOn1, twoOn2, twoOn3];
     row3 = [threeOn1, threeOn2, threeOn3];
 
+    oRow1 = [1,0,0]
+    oRow2 = [0,1,0]
+    oRow3 = [0,0,1]
+
     rows = [row1, row2, row3];
+    oRows = [oRow1, oRow2, oRow3];
+
+
+    document.getElementById("Calculation_div").innerHTML = "";
     startFromAbove();
     startFromBelow();
 }
